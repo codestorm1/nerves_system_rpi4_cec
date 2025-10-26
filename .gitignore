@@ -42,3 +42,4 @@ linux-*/System.map
 
 # Misc local experiments
 *.bak
+*.tar.gz

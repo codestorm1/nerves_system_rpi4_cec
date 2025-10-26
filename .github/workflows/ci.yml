@@ -12,16 +12,45 @@ permissions:
   contents: read
 
 jobs:
+  # 1) REUSE license compliance
+  reuse:
+    name: REUSE Compliance Check
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: REUSE lint
+        uses: fsfe/reuse-action@v3
+
+  # 2) Prefetch Buildroot dependencies (and optionally publish to your bucket)
   get-br-dependencies:
+    name: Get Buildroot Dependencies
+    needs: [reuse]
     runs-on: ubuntu-22.04
     env:
       BR2_PRIMARY_SITE: https://sources.buildroot.net
       BR2_DL_DIR: ${{ runner.temp }}/br_dl
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cache Buildroot downloads
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.BR2_DL_DIR }}
+          key: br-dl-${{ runner.os }}-${{ hashFiles('**/nerves_defconfig', '**/linux-*.defconfig') }}
+          restore-keys: |
+            br-dl-${{ runner.os }}-
+
       - uses: gridpoint-com/actions-nerves-system@v1
-      - name: Get Buildroot Dependencies
+
+      - name: Prefetch Buildroot dependencies
         uses: ./.actions/get-br-dependencies
+        env:
+          BR2_PRIMARY_SITE: ${{ env.BR2_PRIMARY_SITE }}
+          BR2_DL_DIR: ${{ env.BR2_DL_DIR }}
         with:
           otp-version: ${{ env.OTP_VERSION }}
           elixir-version: ${{ env.ELIXIR_VERSION }}
@@ -30,28 +59,77 @@ jobs:
           download-site-bucket-uri: ${{ vars.DOWNLOAD_SITE_BUCKET_URI }}
           aws-role: ${{ secrets.AWS_ROLE }}
           aws-region: ${{ vars.AWS_REGION }}
+
+  # 3) Build the Nerves system artifact
   build-system:
+    name: Build Nerves System
     needs: [get-br-dependencies]
     runs-on: ubuntu-22.04
+    env:
+      BR2_PRIMARY_SITE: https://sources.buildroot.net
+      BR2_DL_DIR: ${{ runner.temp }}/br_dl
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore Buildroot downloads cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.BR2_DL_DIR }}
+          key: br-dl-${{ runner.os }}-${{ hashFiles('**/nerves_defconfig', '**/linux-*.defconfig') }}
+          restore-keys: |
+            br-dl-${{ runner.os }}-
+
       - uses: gridpoint-com/actions-nerves-system@v1
-      - name: Build nerves_system
+
+      - name: Build Nerves system
         uses: ./.actions/build-system
+        env:
+          BR2_PRIMARY_SITE: ${{ env.BR2_PRIMARY_SITE }}
+          BR2_DL_DIR: ${{ env.BR2_DL_DIR }}
         with:
           otp-version: ${{ env.OTP_VERSION }}
           elixir-version: ${{ env.ELIXIR_VERSION }}
           nerves-bootstrap-version: ${{ env.NERVES_BOOTSTRAP_VERSION }}
+
+  # 4) Deploy on tags: attach *.tar.gz (and checksums) to the GitHub Release
   deploy-system:
+    name: Deploy Nerves System
     needs: [build-system]
-    if: github.ref_type == 'tag'
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-22.04
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - uses: gridpoint-com/actions-nerves-system@v1
-      - name: Deploy nerves_system
+
+      - name: Deploy via composite action (if you need it)
         uses: ./.actions/deploy-system
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Find & upload the built artifact(s) to the GitHub Release
+      - name: Compute checksums
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          mkdir -p release_upload
+          for f in _build/**/nerves/images/*.tar.gz; do
+            cp "$f" release_upload/
+            (cd release_upload && sha256sum "$(basename "$f")" > "$(basename "$f").sha256")
+          done
+          ls -l release_upload
+
+      - name: Upload assets to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release_upload/*.tar.gz
+            release_upload/*.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

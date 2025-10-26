@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+
+
 # Nerves System: Raspberry Pi 4 with HDMI-CEC Support
 
 This is a **custom Nerves system** for the Raspberry Pi 4 that enables reliable

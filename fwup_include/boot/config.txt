@@ -1,0 +1,4 @@
+dtoverlay=vc4-kms-v3d
+hdmi_force_hotplug=1
+disable_overscan=1
+gpu_mem=192

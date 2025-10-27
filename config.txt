@@ -5,6 +5,3 @@ dtoverlay=vc4-kms-v3d,cec
 hdmi_force_hotplug=1
 disable_overscan=1
 gpu_mem=192
-
-# add this if GPU is blocking access to CEC
-#hdmi_ignore_cec_init=1

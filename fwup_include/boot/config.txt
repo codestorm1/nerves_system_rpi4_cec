@@ -1,7 +1,0 @@
-# SPDX-FileCopyrightText: 2025 Bryan Green
-# SPDX-License-Identifier: CC0-1.0
-
-dtoverlay=vc4-kms-v3d
-hdmi_force_hotplug=1
-disable_overscan=1
-gpu_mem=192

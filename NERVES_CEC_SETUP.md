@@ -86,7 +86,7 @@ mix nerves.artifact
 **Build time:** 30-60 minutes on first build
 
 **Output:** 
-- Artifact: `.nerves/artifacts/nerves_system_rpi4-portable-1.32.0-cec.6/*.tar.gz`
+- Artifact: `.nerves/artifacts/nerves_system_rpi4-portable-1.32.0-cec.X/*.tar.gz`
 - Size: ~294MB
 
 ### Releasing
@@ -94,10 +94,10 @@ mix nerves.artifact
 # Tag version
 echo "1.32.0-cec.6" > VERSION
 git add -A
-git commit -m "v1.32.0-cec.6 release"
-git tag v1.32.0-cec.6
+git commit -m "v1.32.0-cec.9 release"
+git tag v1.32.0-cec.9
 git push origin main
-git push origin v1.32.0-cec.6
+git push origin v1.32.0-cec.9
 
 # Manual release (GitHub Actions not configured)
 gh release create v1.32.0-cec.6 \

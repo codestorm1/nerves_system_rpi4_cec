@@ -92,7 +92,7 @@ mix nerves.artifact
 ### Releasing
 ```bash
 # Tag version
-echo "1.32.0-cec.6" > VERSION
+echo "1.32.0-cec.9" > VERSION
 git add -A
 git commit -m "v1.32.0-cec.9 release"
 git tag v1.32.0-cec.9
@@ -100,20 +100,20 @@ git push origin main
 git push origin v1.32.0-cec.9
 
 # Manual release (GitHub Actions not configured)
-gh release create v1.32.0-cec.6 \
+gh release create v1.32.0-cec.9 \
   --repo codestorm1/nerves_system_rpi4_cec \
-  --title "v1.32.0-cec.6 - CEC-enabled RPi4" \
-  --notes "Working CEC support via kernel driver."
+  --title "v1.32.0-cec.9 - CEC-enabled RPi4" \
+  --notes "Audio support via kernel driver."
 
 # Upload artifact
-gh release upload v1.32.0-cec.6 \
+gh release upload v1.32.0-cec.9 \
   --repo codestorm1/nerves_system_rpi4_cec \
-  .nerves/artifacts/nerves_system_rpi4-portable-1.32.0-cec.6/*.tar.gz
+  .nerves/artifacts/nerves_system_rpi4-portable-1.32.0-cec.9/*.tar.gz
 
 # Create and upload checksum
-cd .nerves/artifacts/nerves_system_rpi4-portable-1.32.0-cec.6/
+cd .nerves/artifacts/nerves_system_rpi4-portable-1.32.0-cec.9/
 sha256sum *.tar.gz > *.tar.gz.sha256
-gh release upload v1.32.0-cec.6 \
+gh release upload v1.32.0-cec.9 \
   --repo codestorm1/nerves_system_rpi4_cec \
   *.sha256
 ```
@@ -124,7 +124,7 @@ gh release upload v1.32.0-cec.6 \
 ```elixir
 {:nerves_system_rpi4_cec, 
   github: "codestorm1/nerves_system_rpi4_cec",
-  tag: "v1.32.0-cec.6",
+  tag: "v1.32.0-cec.9",
   runtime: false,
   targets: :rpi4}
 ```

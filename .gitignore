@@ -1,45 +1,25 @@
-# Mix / Elixir build artifacts
+# The directory Mix will write compiled artifacts to.
 /_build/
-.cover/
-deps/
-doc/
-.fetch
+
+# If you run "mix test --cover", coverage assets end up here.
+/cover/
+
+# The directory Mix downloads your dependencies sources to.
+/deps/
+
+# Where third-party dependencies like ExDoc output generated docs.
+/doc/
+
+# Ignore .fetch files in case you like to edit your project deps locally.
+/.fetch
+
+# If the VM crashes, it generates a dump, let's ignore it too.
 erl_crash.dump
-/.nerves
 
-# Buildroot and Nerves system outputs
-output/
-images/
-dl/
-tmp/
-build.log
-archive.log
-.br2-external.cache
-.br-deps/
-.br-external/
+# Temporary files, for example, from tests.
+/tmp/
+.envrc
+/.lexical/
 
-# Kernel and build intermediates
-linux-*/.config.old
-linux-*/.tmp_versions/
-linux-*/Module.symvers
-linux-*/modules.order
-linux-*/built-in.a
-linux-*/System.map
+/.nerves/
 
-# Firmware bundles
-*.fw
-*.fw.zip
-*.img
-*.bin
-
-# IDE/editor noise
-*.swp
-*.swo
-*~
-.DS_Store
-.idea/
-.vscode/
-
-# Misc local experiments
-*.bak
-*.tar.gz

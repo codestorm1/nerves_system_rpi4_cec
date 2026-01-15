@@ -3,12 +3,12 @@ defmodule NervesSystemRpi4.MixProject do
 
   @github_organization "codestorm1"
   @app :nerves_system_rpi4
-  @source_url "https://github.com/#{@github_organization}/#{@app}"
-  @version Path.join(__DIR__, "VERSION")
+ source_url "https://github.com/codestorm1/nerves_system_rpi4_cec"
+ @version Path.join(__DIR__, "VERSION")
            |> File.read!()
            |> String.trim()
 
-
+@
   def project do
     [
       app: @app,
@@ -44,7 +44,7 @@ defmodule NervesSystemRpi4.MixProject do
     [
       type: :system,
       artifact_sites: [
-        {:github_releases, "#{@github_organization}/#{@app}"}
+  {:github_releases, "codestorm1/nerves_system_rpi4_cec"}
       ],
       build_runner_opts: build_runner_opts(),
       platform: Nerves.System.BR,

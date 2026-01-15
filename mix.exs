@@ -8,6 +8,7 @@ defmodule NervesSystemRpi4.MixProject do
            |> File.read!()
            |> String.trim()
 
+
   def project do
     [
       app: @app,
@@ -20,7 +21,8 @@ defmodule NervesSystemRpi4.MixProject do
       package: package(),
       deps: deps(),
       aliases: [loadconfig: [&bootstrap/1]],
-      docs: docs()
+      docs: docs(),
+      source_url: @source_url
     ]
   end
 

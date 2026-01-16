@@ -9,4 +9,6 @@ disable_overscan=1
 gpu_mem=192
 
 dtparam=audio=off
+dtparam=spi=on
+
 dtoverlay=rpi-codeczero

@@ -119,6 +119,7 @@ defmodule NervesSystemRpi4.MixProject do
       "post-build.sh",
       "post-createfs.sh",
       "ramoops.dts",
+      "mutebox-audio-in.dts",
       "README.md",
       "REUSE.toml",
       "VERSION"

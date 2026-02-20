@@ -1,0 +1,38 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "brcm,bcm2711";
+
+    fragment@0 {
+        target = <&i2s0>;
+        __overlay__ {
+            status = "okay";
+        };
+    };
+
+    fragment@1 {
+        target-path = "/";
+        __overlay__ {
+            spdif_rx: spdif-rx {
+                compatible = "linux,spdif-dir";
+                #sound-dai-cells = <0>;
+                status = "okay";
+            };
+
+            sound {
+                compatible = "simple-audio-card";
+                simple-audio-card,name = "MuteBox";
+                simple-audio-card,capture-only;
+
+                simple-audio-card,cpu {
+                    sound-dai = <&i2s0>;
+                };
+
+                simple-audio-card,codec {
+                    sound-dai = <&spdif_rx>;
+                };
+            };
+        };
+    };
+};

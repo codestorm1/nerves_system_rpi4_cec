@@ -1,11 +1,10 @@
 /dts-v1/;
 /plugin/;
-
 / {
     compatible = "brcm,bcm2711";
 
     fragment@0 {
-        target = <&i2s0>;
+        target-path = "/soc/i2s@7e203000";
         __overlay__ {
             status = "okay";
         };
@@ -22,11 +21,11 @@
 
             sound {
                 compatible = "simple-audio-card";
-                simple-audio-card,name = "MuteBox";
+                simple-audio-card,name = "Mutebox";
                 simple-audio-card,capture-only;
 
                 simple-audio-card,cpu {
-                    sound-dai = <&i2s0>;
+                    sound-dai = <&{/soc/i2s@7e203000}>;
                 };
 
                 simple-audio-card,codec {

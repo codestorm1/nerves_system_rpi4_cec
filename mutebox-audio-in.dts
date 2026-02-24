@@ -23,12 +23,13 @@
                 compatible = "simple-audio-card";
                 simple-audio-card,name = "Mutebox";
                 simple-audio-card,capture-only;
+                simple-audio-card,bitclock-master = <&codec_node>;
+                simple-audio-card,frame-master = <&codec_node>;
 
                 simple-audio-card,cpu {
                     sound-dai = <&i2s>;
-                    frame-master = <&codec_node>;
-                    bitclock-master = <&codec_node>;
-                    system-clock-frequency = <24576000>;
+                    dai-tdm-slot-num = <2>;
+                    dai-tdm-slot-width = <32>;
                 };
 
                 codec_node: simple-audio-card,codec {

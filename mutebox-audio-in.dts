@@ -4,7 +4,7 @@
     compatible = "brcm,bcm2711";
 
     fragment@0 {
-        target-path = "/soc/i2s@7e203000";
+        target = <&i2s>;
         __overlay__ {
             status = "okay";
         };
@@ -25,10 +25,13 @@
                 simple-audio-card,capture-only;
 
                 simple-audio-card,cpu {
-                    sound-dai = <&{/soc/i2s@7e203000}>;
+                    sound-dai = <&i2s>;
+                    frame-master = <&codec_node>;
+                    bitclock-master = <&codec_node>;
+                    system-clock-frequency = <24576000>;
                 };
 
-                simple-audio-card,codec {
+                codec_node: simple-audio-card,codec {
                     sound-dai = <&spdif_rx>;
                 };
             };

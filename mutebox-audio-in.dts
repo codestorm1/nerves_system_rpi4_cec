@@ -7,6 +7,7 @@
         target = <&i2s>;
         __overlay__ {
             status = "okay";
+            #sound-dai-cells = <0>;
         };
     };
 
@@ -23,13 +24,11 @@
                 compatible = "simple-audio-card";
                 simple-audio-card,name = "Mutebox";
                 simple-audio-card,capture-only;
-                simple-audio-card,bitclock-master = <&codec_node>;
-                simple-audio-card,frame-master = <&codec_node>;
 
                 simple-audio-card,cpu {
                     sound-dai = <&i2s>;
-                    dai-tdm-slot-num = <2>;
-                    dai-tdm-slot-width = <32>;
+                    bitclock-slave;
+                    frame-slave;
                 };
 
                 codec_node: simple-audio-card,codec {

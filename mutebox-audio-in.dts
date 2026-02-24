@@ -24,6 +24,7 @@
                 compatible = "simple-audio-card";
                 simple-audio-card,name = "Mutebox";
                 simple-audio-card,capture-only;
+                simple-audio-card,format = "i2s";
 
                 simple-audio-card,cpu {
                     sound-dai = <&i2s>;
@@ -38,3 +39,5 @@
         };
     };
 };
+
+

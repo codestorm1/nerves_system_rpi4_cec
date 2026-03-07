@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: GPL-2.0
+// Mutebox HAT - PCM1862 ADC overlay
+// Pi as I2S slave, PCM1862 as clock master
+// 24.576 MHz oscillator on PCM1862 SCKI
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target = <&i2c1>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			pcm1862: pcm1862@4a {
+				compatible = "ti,pcm1862";
+				reg = <0x4a>;
+				#sound-dai-cells = <0>;
+				status = "okay";
+
+				// 24.576 MHz oscillator feeding SCKI
+				clocks = <&pcm1862_scki>;
+				clock-names = "scki";
+			};
+		};
+	};
+
+	fragment@1 {
+		target-path = "/";
+		__overlay__ {
+			pcm1862_scki: pcm1862_scki {
+				compatible = "fixed-clock";
+				#clock-cells = <0>;
+				clock-frequency = <24576000>;
+			};
+
+			sound {
+				compatible = "simple-audio-card";
+				simple-audio-card,name = "mutebox-hat";
+				simple-audio-card,format = "i2s";
+
+				simple-audio-card,bitclock-master = <&codec_dai>;
+				simple-audio-card,frame-master = <&codec_dai>;
+
+				simple-audio-card,cpu {
+					sound-dai = <&i2s>;
+				};
+
+				codec_dai: simple-audio-card,codec {
+					sound-dai = <&pcm1862>;
+				};
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&i2s>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};

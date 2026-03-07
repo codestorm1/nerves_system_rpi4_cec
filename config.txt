@@ -11,4 +11,5 @@ gpu_mem=192
 dtparam=audio=off
 dtparam=spi=on
 
-dtoverlay=mutebox-audio-in
+#dtoverlay=mutebox-audio-in
+dtoverlay=mutebox-pcm1862

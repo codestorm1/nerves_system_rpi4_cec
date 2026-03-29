@@ -1,8 +1,8 @@
-defmodule NervesSystemRpi4.MixProject do
+defmodule NervesSystemRpi4Cec.MixProject do
   use Mix.Project
 
   # @github_organization "codestorm1"
-  @app :nerves_system_rpi4
+  @app :nerves_system_rpi4_cec
   @source_url "https://github.com/codestorm1/nerves_system_rpi4_cec"
   @version Path.join(__DIR__, "VERSION")
            |> File.read!()

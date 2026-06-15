@@ -42,9 +42,8 @@
 				compatible = "simple-audio-card";
 				simple-audio-card,name = "mutebox-hat";
 				simple-audio-card,format = "i2s";
-
-				simple-audio-card,bitclock-master = <&codec_dai>;
-				simple-audio-card,frame-master = <&codec_dai>;
+				simple-audio-card,bitclock-slave = <&codec_dai>;
+				simple-audio-card,frame-slave = <&codec_dai>;
 
 				simple-audio-card,cpu {
 					sound-dai = <&i2s>;

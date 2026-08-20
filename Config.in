@@ -2,3 +2,7 @@
 #
 # If these are non-proprietary, please consider contributing them back to
 # Nerves or Buildroot.
+
+source "$NERVES_DEFCONFIG_DIR/package/whispercpp/Config.in"
+source "$NERVES_DEFCONFIG_DIR/package/whisper-model-tiny-en/Config.in"
+source "$NERVES_DEFCONFIG_DIR/package/whisper-model-base-en/Config.in"

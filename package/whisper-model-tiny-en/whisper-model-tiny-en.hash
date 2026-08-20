@@ -1,0 +1,3 @@
+# Verified against the x-linked-etag (content sha256) served by
+# huggingface.co for this file, and by downloading and hashing it directly.
+sha256  921e4cf8686fdd993dcd081a5da5b6c365bfde1162e72b08d75ac75289920b1f  ggml-tiny.en.bin

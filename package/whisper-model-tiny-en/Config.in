@@ -1,0 +1,12 @@
+config BR2_PACKAGE_WHISPER_MODEL_TINY_EN
+	bool "whisper-model-tiny-en"
+	depends on BR2_PACKAGE_WHISPERCPP
+	help
+	  Bundles the ggml tiny.en Whisper model (~74MB) into the
+	  firmware image so speech-to-text transcription works fully
+	  offline from first boot, with no in-field download step.
+
+	  https://huggingface.co/ggerganov/whisper.cpp
+
+comment "whisper-model-tiny-en needs whispercpp"
+	depends on !BR2_PACKAGE_WHISPERCPP

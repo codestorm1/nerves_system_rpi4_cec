@@ -59,6 +59,11 @@ BR2_PACKAGE_FFTW=y
 # audio fingerprinting
 BR2_PACKAGE_CHROMAPRINT=y
 
+# offline speech-to-text (commercial name transcription)
+BR2_PACKAGE_WHISPERCPP=y
+BR2_PACKAGE_WHISPER_MODEL_TINY_EN=y
+BR2_PACKAGE_WHISPER_MODEL_BASE_EN=y
+
 # enable scp
 BR2_PACKAGE_DROPBEAR=y
 BR2_PACKAGE_DROPBEAR_SCP=y

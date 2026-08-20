@@ -107,9 +107,12 @@ defmodule NervesSystemRpi4Cec.MixProject do
     [
       "fwup_include",
       "rootfs_overlay",
+      "package",
       "CHANGELOG.md",
       "cmdline.txt",
       "config.txt",
+      "Config.in",
+      "external.mk",
       "fwup-ops.conf",
       "fwup.conf",
       "LICENSES/*",

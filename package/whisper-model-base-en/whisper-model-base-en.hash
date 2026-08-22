@@ -1,3 +1,0 @@
-# Verified against the x-linked-etag (content sha256) served by
-# huggingface.co for this file, and by downloading and hashing it directly.
-sha256  a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002  ggml-base.en.bin

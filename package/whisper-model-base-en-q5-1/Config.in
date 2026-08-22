@@ -1,0 +1,19 @@
+config BR2_PACKAGE_WHISPER_MODEL_BASE_EN_Q5_1
+	bool "whisper-model-base-en-q5-1"
+	depends on BR2_PACKAGE_WHISPERCPP
+	help
+	  Bundles the ggml base.en model, 5-bit quantized (~57MB), into
+	  the firmware image so speech-to-text transcription works fully
+	  offline from first boot, with no in-field download step.
+
+	  Replaces the full fp16 base.en model (too much compute for the
+	  RPi4 to sustain - even a single run at 1 thread was enough to
+	  trip the hardware watchdog) and tiny.en (ran fine, but dropped
+	  or garbled words on real broadcast audio). The q5_1 quantized
+	  base.en lands in between: base.en's accuracy at a compute cost
+	  this hardware can actually survive.
+
+	  https://huggingface.co/ggerganov/whisper.cpp
+
+comment "whisper-model-base-en-q5-1 needs whispercpp"
+	depends on !BR2_PACKAGE_WHISPERCPP

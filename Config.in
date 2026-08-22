@@ -4,5 +4,4 @@
 # Nerves or Buildroot.
 
 source "$NERVES_DEFCONFIG_DIR/package/whispercpp/Config.in"
-source "$NERVES_DEFCONFIG_DIR/package/whisper-model-tiny-en/Config.in"
-source "$NERVES_DEFCONFIG_DIR/package/whisper-model-base-en/Config.in"
+source "$NERVES_DEFCONFIG_DIR/package/whisper-model-base-en-q5-1/Config.in"

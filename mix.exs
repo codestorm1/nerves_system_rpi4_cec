@@ -131,7 +131,10 @@ defmodule NervesSystemRpi4Cec.MixProject do
 
   defp build_runner_opts() do
     # Download source files first to get download errors right away.
-    [make_args: primary_site() ++ ["source", "all", "legal-info"]]
+    # Cap parallelism: Buildroot defaults to nproc+1 (17 on the build host),
+    # which OOMs a 13 GB machine once GCC 15 is compiling the heavier C++
+    # packages. 4 keeps it building without thrashing.
+    [make_args: primary_site() ++ ["PARALLEL_JOBS=4", "source", "all", "legal-info"]]
   end
 
   defp primary_site() do
